@@ -16,7 +16,6 @@ list_node* new_list_node(int n)
 
     data->value = n;
     data->next = NULL;
-    data->prev = NULL;
     return data;
 }
 
@@ -30,96 +29,69 @@ int list_is_null(list_header *list)
 
 int list_add(list_header *list, int n)
 {
-	list_node* data = new_list_node(n);
-    list_node *aux = list->header;
+    list_node* data = new_list_node(n);
+    list_node *curr = list->header;
     list_node *prev = NULL;
 
     /*procura posicao para insercao*/
-	while(aux != NULL && ( aux->value <= n) )
-	{
-		if( aux->value == n)
+    while(curr != NULL && ( data->value >= curr->value))
+    {
+        //not add 2 ra's equals
+        if( data->value == curr->value)
         {
             return 0;
         }
 
-		prev = aux;
-		aux = aux->next;
-	}
+        prev = curr;
+        curr = curr->next;
+    }
 
     if(list->header == NULL)//lista vazia
     {
         list->header = data;
-        data->prev = NULL;
         list->size++;
         return 1;
     }
-	else if(aux == NULL)//pos fim
-    {
-        prev->next = data;
-        data->prev = prev;
-        list->size++;
-        return 1;
-    }
-	else if(prev == NULL)//pos ini
+    else if(prev == NULL)//pos ini
     {
         list->header = data;
-        data->prev = NULL;
-        data->next = aux;
+        data->next = curr;
         list->size++;
         return 1;
     }
-	else//pos meio
-	{
-		prev->next = data;
-		data->next = aux;
-		data->prev = prev;
-		list->size++;
-		return 1;
-	}
+    else//pos meio
+    {
+        prev->next = data;
+        data->next = curr;
+        list->size++;
+        return 1;
+    }
 
-	return  -1;
-
+    return  -1;
 }
 
 int list_remove(list_header* list, int n)
 {
+    list_node *curr, *prev;
+    prev = NULL;
 
-    list_node *data = list->header;
-
-    list_node *prev = NULL;
-    list_node *next = NULL;
-
-    while(data != NULL)
+    for (curr = list->header; curr != NULL; prev = curr, curr = curr->next) 
     {
-       if(data->value == n)
-        {
-
-            prev = data->prev;
-            next = data->next;
-
-            if(prev == NULL)//primeiro elemento
+        if (curr->value == n) 
+        { 
+            if (prev == NULL) 
             {
-               list->header = next;
-                if(next != NULL)
-                    next->prev = NULL;
-            }
-            else if(next != NULL)//Meio
+                list->header = curr->next;
+            } 
+            else 
             {
-                prev->next = next;
-                next->prev = prev;
+                prev->next = curr->next;
             }
-            else
-            {
-              prev->next = NULL;
-            }
-
-            free(data);
-
-            return 1;
+        free(curr);
+        return 1;
         }
-        data = data->next;
     }
-
     return 0;
 }
+
 int list_find(list_header* list, int n);

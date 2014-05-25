@@ -20,34 +20,16 @@ void test_list()
 {
     list_header* list_ = new_list();
     list_add(list_, 3);
-    list_add(list_, 7);
-    list_add(list_, 5);
     list_add(list_, 1);
-    list_add(list_, 2);
-    list_add(list_, 8);
     list_add(list_, 4);
-    list_add(list_, 6);
-    list_add(list_, 9);
-    list_add(list_, 0);
+    list_add(list_, 2);
+
 
     listing(list_->header);
 
-    list_remove(list_,0);
-    list_remove(list_,9);
+    list_remove(list_,3);
+    //list_remove(list_,1);
     
-    printf("\n");
-    listing(list_->header);
-
-    list_remove(list_,5);
-    list_remove(list_,6);
-   
-    printf("\n");
-    listing(list_->header);
-
-    list_add(list_, 6);
-    list_add(list_, 9);
-    list_add(list_, 0);
-
     printf("\n");
     listing(list_->header);
 
