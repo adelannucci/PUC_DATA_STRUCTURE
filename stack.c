@@ -66,6 +66,7 @@ int pop(stack_header* stack)
     stack_node *aux = stack->top;
     out = aux->value;
     stack->top = aux->next;
+    stack->size--;
     free(aux);
     return out;
 }

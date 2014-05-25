@@ -2,6 +2,56 @@
 #include <stdlib.h>
 #include "queue.c"
 #include "stack.c"
+#include "list.c"
+
+
+void listing(list_node* node)
+{
+
+    if(node != NULL)
+    {
+        printf("lis value %d\n", node->value);
+        listing(node->next);
+    }
+
+}
+
+void test_list()
+{
+    list_header* list_ = new_list();
+    list_add(list_, 3);
+    list_add(list_, 7);
+    list_add(list_, 5);
+    list_add(list_, 1);
+    list_add(list_, 2);
+    list_add(list_, 8);
+    list_add(list_, 4);
+    list_add(list_, 6);
+    list_add(list_, 9);
+    list_add(list_, 0);
+
+    listing(list_->header);
+
+    list_remove(list_,0);
+    list_remove(list_,9);
+    
+    printf("\n");
+    listing(list_->header);
+
+    list_remove(list_,5);
+    list_remove(list_,6);
+   
+    printf("\n");
+    listing(list_->header);
+
+    list_add(list_, 6);
+    list_add(list_, 9);
+    list_add(list_, 0);
+
+    printf("\n");
+    listing(list_->header);
+
+}
 
 void test_queue()
 {
@@ -57,6 +107,7 @@ void test_stack()
 
 int main()
 {
+    test_list();
     test_queue();
     test_stack();
     return 0;

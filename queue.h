@@ -1,10 +1,10 @@
 #ifndef QUEUE_H_INCLUDED
 #define QUEUE_H_INCLUDED
 
-typedef struct queue_queue_node
+typedef struct queue_node
 {
     int value;
-    struct queue_queue_node* next;
+    struct queue_node* next;
 }queue_node;
 
 typedef struct queue
